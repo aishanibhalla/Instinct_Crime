@@ -1,38 +1,27 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>Get started with MapView - Create a 2D map</title>
-<style>
-  html, body, #viewDiv {
-    padding: 0;
-    margin: 0;
-    height: 100%;
-    width: 100%;
-  }
-</style>
-<link rel="stylesheet" href="https://js.arcgis.com/4.0/esri/css/main.css">
-<script src="https://js.arcgis.com/4.0/"></script>
-<script>
-require([
-  "esri/Map",
-  "esri/views/MapView",
-  "dojo/domReady!"
-], function(Map, MapView){
-  var map = new Map({
-    basemap: "streets"
-  });
-  var view = new MapView({
-    container: "viewDiv",  // Reference to the scene div created in step 5
-    map: map,  // Reference to the map object created before the scene
-    zoom: 12,  // Sets the zoom level based on level of detail (LOD)
-    center: [-122.4194, 37.7749]  // Sets the center point of view in lon/lat
-  });
-});
-</script>
-</head>
-<body>
-  <div id="viewDiv"></div>
-</body>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
+    <title>Well completion dates for the Hugoton Gas Field Over Time</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/3.17/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/3.17/esri/css/esri.css">
+    <link rel="stylesheet" href="css/crimecast.css">
+
+    <script src="https://js.arcgis.com/3.17/"></script>
+    <script src="js/crimecast.js"></script>
+  </head>
+  <body class="claro">
+
+    <div id="mapDiv">
+      <div id="bottomPanel">
+        <div id="timeInfo">
+          <!-- <div>Hugoton Gas Field Wells from <span id="daterange">1921 to 2009</span> (Completion date)</div> -->
+          <div id="timeSliderDiv"></div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
