@@ -37,7 +37,7 @@ date = pd.get_dummies(date)
 
 
 # Build new array
-train_data = pd.concat([hour, days, month, year,district,date], axis=1)
+train_data = pd.concat([hour, days, month,district,date], axis=1)
 #print train_data
 train_data['crime'] = crime
 print train_data['crime']
@@ -54,8 +54,6 @@ features = features + features_time
 features_date = [x for x in range(1,32)]
 features = features + features_date
 
-features_year = [x for x in range(2003,2016)]
-features = features + features_year
 
 features_month = [x for x in range(1,13)]
 features = features + features_month

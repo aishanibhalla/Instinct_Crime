@@ -18,11 +18,13 @@ def get_prediction():
         print year,month,week_date
         print time
         print hour
+        result={}
         location=['BAYVIEW', 'CENTRAL', 'INGLESIDE', 'MISSION','NORTHERN', 'PARK', 'RICHMOND', 'SOUTHERN', 'TARAVAL', 'TENDERLOIN']
         for each_location in location:
-            predictor.predict("Tuesday",each_location,hour,month,year,week_date)
+            result[each_location]=predictor.predict("Tuesday",each_location,hour,month,year,week_date)
+        print result
         if(request.args.get('callback')!=None):
-            return '{0}({1})'.format(request.args.get('callback'),"hello")
+            return '{0}({1})'.format(request.args.get('callback'),result)
         else:
             return "hello"
        # except:
