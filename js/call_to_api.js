@@ -1,4 +1,6 @@
 var map;
+var timeSlider;
+var timeExtent_main;
 require([
   "esri/map", "esri/layers/ArcGISDynamicMapServiceLayer",
   "esri/TimeExtent", "esri/dijit/TimeSlider", "esri/urlUtils",
@@ -14,18 +16,15 @@ require([
         UniqueValueRenderer, Color,
   arrayUtils, dom
 ) {
-  arcgisUtils.createMap("ebef4df1bbd240d7aade012c472b2538","mapDiv").then(function(response){
+  arcgisUtils.createMap("6f046a9aa0be46f18ad45afcb0c17fe7","mapDiv").then(function(response){
     map = response.map;
     console.log(map);
-    //map.on("layers-add-result", initSlider);
-  //  test();
-    //initSlider();
   });
 var main_data;
   function initSlider(date,data) {
     console.log("inside init slider "+date);
     main_data=data;
-    make_feature_layer(data);
+
     date=date.split("-");
     year=date[0];
     month=date[1];
@@ -34,19 +33,19 @@ var main_data;
     console.log(month);
     console.log(date_week);
     //console.log("Initslider was called");
-    var timeSlider = new TimeSlider({
+     timeSlider = new TimeSlider({
       style: "width: 100%;"
     }, dom.byId("timeSliderDiv"));
     //map.setTimeSlider(timeSlider);
-    var timeExtent = new TimeExtent();
-    timeExtent.startTime = new Date(year,month-1,date_week,0);
-//    console.log(timeExtent.startTime.getDay());
-    timeExtent.endTime = new Date(year,month-1,date_week,23);
-    console.log(timeExtent.startTime+" "+timeExtent.endTime);
+    timeExtent_main = new TimeExtent();
+    timeExtent_main.startTime = new Date(year,month-1,date_week,0);
+    console.log(timeExtent_main);
+    timeExtent_main.endTime = new Date(year,month-1,date_week,23);
+    console.log(timeExtent_main.startTime+" "+timeExtent_main.endTime);
     timeSlider.setThumbCount(1);
-    timeSlider.createTimeStopsByTimeInterval(timeExtent, 1, "esriTimeUnitsHours");
+    timeSlider.createTimeStopsByTimeInterval(timeExtent_main, 1, "esriTimeUnitsHours");
     timeSlider.setThumbIndexes([0]);
-    timeSlider.setThumbMovingRate(2000);
+    //timeSlider.setThumbMovingRate(2000);
     timeSlider.startup();
 
     //add labels for every other time stop
@@ -57,72 +56,95 @@ var main_data;
     timeSlider.setLabels(labels);
 
     timeSlider.on("time-extent-change", function(evt) {
-      var startValString = evt.startTime.getUTCFullYear();
-      var endValString = evt.endTime.getUTCFullYear();
-      dom.byId("daterange").innerHTML = "<i>" + startValString + " and " + endValString  + "<\/i>";
+
+      var time = timeSlider.getCurrentTimeExtent().endTime.getHours();
+      console.log(time);
+      make_feature_layer(data,time);
     });
+
   }
 
 
- function make_feature_layer(data){
+  function make_renderer(time){
+    console.log(main_data);
+    console.log(time);
+    var defaultSymbol = new SimpleFillSymbol().setStyle(SimpleFillSymbol.STYLE_NULL);
+    defaultSymbol.outline.setStyle(SimpleLineSymbol.STYLE_NULL);
+    //console.log("1");
+    var renderer = new UniqueValueRenderer(defaultSymbol, function(feature){
+    var district = feature.attributes.neighborho;
+    console.log("district "+district);
+
+    // console.log(Object.keys(main_data[district][0])[0]);
+    // return Object.keys(main_data[district][0])[0];
+
+    var arr = Object.keys( main_data[district][time] ).map(function ( key ) { return main_data[district][time][key]; });
+    var max = Math.max.apply( null, arr );
+    //console.log(max);
+    keys=Object.keys(main_data[district][time]);
+    if(max>=0.3){
+      //console.log(arr.indexOf(max));
+      //console.log(keys[arr.indexOf(max)]);
+      console.log(keys[arr.indexOf(max)]);
+      return keys[arr.indexOf(max)];
+    }
+
+
+
+    });
+    renderer.addValue("ARSON", new SimpleFillSymbol().setColor(new Color([255, 194, 0, 1])));
+    renderer.addValue("ASSAULT", new SimpleFillSymbol().setColor(new Color([62, 78, 184, 1])));
+    renderer.addValue("BURGLARY", new SimpleFillSymbol().setColor(new Color([122, 85, 71, 1])));
+    renderer.addValue("DISORDERLY CONDUCT", new SimpleFillSymbol().setColor(new Color([71, 176, 75, 1])));
+    renderer.addValue("DRUG/NARCOTIC", new SimpleFillSymbol().setColor(new Color([247, 65, 45, 1])));
+    renderer.addValue("JUVENILE CRIMES", new SimpleFillSymbol().setColor(new Color([255, 255, 255, 1])));
+    renderer.addValue("LOITERING", new SimpleFillSymbol().setColor(new Color([0, 188, 214, 1])));
+    renderer.addValue("NON-CRIMINAL", new SimpleFillSymbol().setColor(new Color([215, 0, 253, 1])));
+    renderer.addValue("ROBBERY", new SimpleFillSymbol().setColor(new Color([88, 30, 211, 1])));
+    renderer.addValue("VANDALISM", new SimpleFillSymbol().setColor(new Color([236, 21, 97, 1])));
+    renderer.addValue("VEHICLE THEFT", new SimpleFillSymbol().setColor(new Color([0, 151, 136, 1])));
+    renderer.addValue("WEAPON LAWS", new SimpleFillSymbol().setColor(new Color([216, 216, 216, 1])));
+    //console.log(renderer);
+    return renderer;
+}
+
+ function make_feature_layer(data,time){
     console.log("inside make feature layer");
-    //console.log(data);
-    for(var key in data){
-      //console.log(key);
-      predictions=data[key][0];
-      //console.log(predictions);
 
-}
-function mapping(graphic){
-  console.log("mapping")
-  var company = graphic.attributes.DISTRICT;
-  console.log(company);
-  console.log(main_data[company][0].keys()[0]);
-  return main_data[company][0].keys()[0];
-
-}
-      var defaultSymbol = new SimpleFillSymbol().setStyle(SimpleFillSymbol.STYLE_NULL);
-      defaultSymbol.outline.setStyle(SimpleLineSymbol.STYLE_NULL);
-      console.log("1");
-      var renderer = new UniqueValueRenderer(defaultSymbol, function(feature){
-        //console.log("hello");
-        //console.log(main_data);
-        var district = feature.attributes.DISTRICT;
-        console.log("district "+district);
-        console.log(Object.keys(main_data[district][0])[0]);
-        return Object.keys(main_data[district][0])[0];
-      });
-
-      console.log("2");
-      renderer.addValue("LARCENY/THEFT", new SimpleFillSymbol().setColor(new Color([255, 0, 0, 0.5])));
-      renderer.addValue("NON-CRIMINAL", new SimpleFillSymbol().setColor(new Color([0, 255, 0, 0.5])));
-      renderer.addValue("OTHER OFFENSES", new SimpleFillSymbol().setColor(new Color([0, 0, 255, 0.5])));
-      renderer.addValue("ASSAULT", new SimpleFillSymbol().setColor(new Color([255, 0, 255, 0.5])));
-      renderer.addValue("VANDALISM", new SimpleFillSymbol().setColor(new Color([255, 255, 255, 0.75])));
-      renderer.addValue("DRUG/NARCOTIC", new SimpleFillSymbol().setColor(new Color([0, 255, 255, 0.5])));
-      renderer.addValue("VEHICLE THEFT", new SimpleFillSymbol().setColor(new Color([255, 255, 0, 0.5])));
-      console.log("3");
-      console.log(renderer);
-
-
-      var featureLayer = new FeatureLayer("http://services1.arcgis.com/ohIVh2op2jYT7sku/arcgis/rest/services/SFPD_Districts/FeatureServer/0", {
-                mode: FeatureLayer.MODE_SNAPSHOT,
-                outFields: ["DISTRICT"],
-                //infoTemplate: infoTemplate
-              });
-              featureLayer.setRenderer(renderer);
-          map.addLayer(featureLayer);
-
+    try{
+    map.removeLayer(map.getLayer("custom_layer"));
+  }
+  catch(err){
+    console.log("first time application of layer");
+  }
+      // for(var y=0;y<24;y++){
+            var featureLayer = new FeatureLayer("http://services.arcgis.com/6DIQcwlPy8knb6sg/arcgis/rest/services/Neighborhoods/FeatureServer/0", {
+                  mode: FeatureLayer.MODE_SNAPSHOT,
+                  outFields: ["neighborho"],
+                  //infoTemplate: infoTemplate
+            });
+            featureLayer.id="custom_layer";
+      //       timeSlider.play();
+      //       timeSlider.pause();
+             featureLayer.setRenderer(make_renderer(time));
+      //       console.log("I just called everything");
+           map.addLayer(featureLayer);
+      //       //setTimeout(donothing,20000);
+      //       // for(var x=0;x<10000;x++){
+      //       //   for(var v;v<10000;v++){
+      //       //
+      //       //   }
+      //       // }
+      //       function donothing(){}
+      //       timeSlider.play();
+      //
+      // }
 
 
 
 
 
     }
-
-
-
-
 
   (
   function($){

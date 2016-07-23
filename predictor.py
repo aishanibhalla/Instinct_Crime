@@ -11,7 +11,10 @@ def predict(days,district,hour,month,year,date):
     month_1=[]
     year_1=[]
     days_1=['Friday', 'Monday', 'Saturday', 'Sunday', 'Thursday', 'Tuesday','Wednesday']
-    district_1=['BAYVIEW', 'CENTRAL', 'INGLESIDE', 'MISSION','NORTHERN', 'PARK', 'RICHMOND', 'SOUTHERN', 'TARAVAL', 'TENDERLOIN']
+    district_1=["Bayview","Bernal Heights","Castro / Upper Market","China Town","Crocker Amazon","Diamond Heights",
+"Downtown","Excelsior","Financial District","Glen Park","Golden Gate Park","Haight Ashbury","Inner Richmond","Inner Sunset","Lakeshore","Marina","Mission","Nob Hill","Noe Valley",
+"North Beach","Ocean View","Outer Mission","Outer Richmond","Outer Sunset","Pacific Heights","Parkside","Portero Hills","Presidio","Presidio Heights","Russian Hills",
+"Sea Cliff","South Market","Treasure Island","Twin Peaks","Visitacion Valley","West Twin Peaks","Western Addition"]
 
     df_weekday = pd.DataFrame(0, index=range(0, 1), columns=days_1)
     df_weekday[days] = 1
@@ -58,8 +61,10 @@ def predict(days,district,hour,month,year,date):
 
     #print test_data
     features = ['Friday', 'Monday', 'Saturday', 'Sunday', 'Thursday', 'Tuesday',
-                'Wednesday','BAYVIEW', 'CENTRAL', 'INGLESIDE', 'MISSION',
-    'NORTHERN', 'PARK', 'RICHMOND', 'SOUTHERN', 'TARAVAL', 'TENDERLOIN']
+                'Wednesday',"Bayview","Bernal Heights","Castro / Upper Market","China Town","Crocker Amazon","Diamond Heights",
+"Downtown","Excelsior","Financial District","Glen Park","Golden Gate Park","Haight Ashbury","Inner Richmond","Inner Sunset","Lakeshore","Marina","Mission","Nob Hill","Noe Valley",
+"North Beach","Ocean View","Outer Mission","Outer Richmond","Outer Sunset","Pacific Heights","Parkside","Portero Hills","Presidio","Presidio Heights","Russian Hills",
+"Sea Cliff","South Market","Treasure Island","Twin Peaks","Visitacion Valley","West Twin Peaks","Western Addition"]
     features_time = [x for x in range(0,24)]
     features = features + features_time
 
@@ -75,15 +80,9 @@ def predict(days,district,hour,month,year,date):
     predicted = predicted.tolist()
     #print predicted
     # predicted=model.predict_proba(test[features])
-    list_crimes=['ARSON' ,'ASSAULT', 'BAD CHECKS', 'BRIBERY', 'BURGLARY', 'DISORDERLY CONDUCT',
-     'DRIVING UNDER THE INFLUENCE', 'DRUG/NARCOTIC', 'DRUNKENNESS' ,'EMBEZZLEMENT',
-     'EXTORTION' ,'FAMILY OFFENSES' ,'FORGERY/COUNTERFEITING', 'FRAUD', 'GAMBLING',
-     'KIDNAPPING', 'LARCENY/THEFT', 'LIQUOR LAWS', 'LOITERING', 'MISSING PERSON',
-     'NON-CRIMINAL', 'OTHER OFFENSES', 'PORNOGRAPHY/OBSCENE MAT', 'PROSTITUTION',
-     'RECOVERED VEHICLE', 'ROBBERY', 'RUNAWAY', 'SECONDARY CODES',
-     'SEX OFFENSES FORCIBLE' ,'SEX OFFENSES NON FORCIBLE', 'STOLEN PROPERTY',
-     'SUICIDE', 'SUSPICIOUS OCC', 'TREA', 'TRESPASS', 'VANDALISM', 'VEHICLE THEFT',
-     'WARRANTS' ,'WEAPON LAWS']
+    list_crimes=['ARSON' ,'ASSAULT', 'BURGLARY', 'DISORDERLY CONDUCT', 'DRUG/NARCOTIC',
+ 'JUVENILE CRIMES', 'LOITERING', 'NON-CRIMINAL', 'ROBBERY', 'VANDALISM',
+ 'VEHICLE THEFT', 'WEAPON LAWS']
     prediction_crime={}
 
     for i in range(0,len(list_crimes)):
