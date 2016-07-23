@@ -21,36 +21,10 @@ require([
   //  test();
     //initSlider();
   });
-  function addFeatureLayer() {
-    var defaultSymbol = new SimpleFillSymbol().setStyle(SimpleFillSymbol.STYLE_NULL);
-    defaultSymbol.outline.setStyle(SimpleLineSymbol.STYLE_NULL);
-
-    //create renderer
-    var renderer = new UniqueValueRenderer(defaultSymbol, "SUB_REGION");
-
-    //add symbol for each possible value
-    renderer.addValue("Pacific", new SimpleFillSymbol().setColor(new Color([255, 0, 0, 0.5])));
-    renderer.addValue("Mtn", new SimpleFillSymbol().setColor(new Color([0, 255, 0, 0.5])));
-    renderer.addValue("N Eng", new SimpleFillSymbol().setColor(new Color([0, 0, 255, 0.5])));
-    renderer.addValue("S Atl", new SimpleFillSymbol().setColor(new Color([255, 0, 255, 0.5])));
-    renderer.addValue("Mid Atl", new SimpleFillSymbol().setColor(new Color([255, 255, 255, 0.75])));
-    renderer.addValue("E N Cen", new SimpleFillSymbol().setColor(new Color([0, 255, 255, 0.5])));
-    renderer.addValue("W N Cen", new SimpleFillSymbol().setColor(new Color([255, 255, 0, 0.5])));
-    renderer.addValue("E S Cen", new SimpleFillSymbol().setColor(new Color([127, 127, 127, 0.5])));
-    renderer.addValue("W S Cen", new SimpleFillSymbol().setColor(new Color([0, 0, 0, 0.5])));
-
-    var featureLayer = new FeatureLayer("https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Specialty/ESRI_StateCityHighway_USA/MapServer/1", {
-      infoTemplate: new InfoTemplate(" ", "${SUB_REGION}"),
-      mode: FeatureLayer.MODE_ONDEMAND,
-      outFields: ["SUB_REGION"]
-    });
-
-    featureLayer.setRenderer(renderer);
-    map.addLayer(featureLayer);
-  }
+var main_data;
   function initSlider(date,data) {
     console.log("inside init slider "+date);
-
+    main_data=data;
     make_feature_layer(data);
     date=date.split("-");
     year=date[0];
@@ -90,18 +64,63 @@ require([
   }
 
 
-// function make_feature_layer(){
-//   csv = new CSVLayer("", {
-//           //copyright: "USGS.gov"
-//         });
-//         var orangeRed = new Color([238, 69, 0, 0.5]); // hex is #ff4500
-//         var marker = new SimpleMarkerSymbol("solid", 15, null, orangeRed);
-//         var renderer = new SimpleRenderer(marker);
-//         csv.setRenderer(renderer);
-//         var template = new InfoTemplate("${type}", "${place}");
-//         csv.setInfoTemplate(template);
-//         map.addLayer(csv);
-// }
+ function make_feature_layer(data){
+    console.log("inside make feature layer");
+    //console.log(data);
+    for(var key in data){
+      //console.log(key);
+      predictions=data[key][0];
+      //console.log(predictions);
+
+}
+function mapping(graphic){
+  console.log("mapping")
+  var company = graphic.attributes.DISTRICT;
+  console.log(company);
+  console.log(main_data[company][0].keys()[0]);
+  return main_data[company][0].keys()[0];
+
+}
+      var defaultSymbol = new SimpleFillSymbol().setStyle(SimpleFillSymbol.STYLE_NULL);
+      defaultSymbol.outline.setStyle(SimpleLineSymbol.STYLE_NULL);
+      console.log("1");
+      var renderer = new UniqueValueRenderer(defaultSymbol, function(feature){
+        //console.log("hello");
+        //console.log(main_data);
+        var district = feature.attributes.DISTRICT;
+        console.log("district "+district);
+        console.log(Object.keys(main_data[district][0])[0]);
+        return Object.keys(main_data[district][0])[0];
+      });
+
+      console.log("2");
+      renderer.addValue("LARCENY/THEFT", new SimpleFillSymbol().setColor(new Color([255, 0, 0, 0.5])));
+      renderer.addValue("NON-CRIMINAL", new SimpleFillSymbol().setColor(new Color([0, 255, 0, 0.5])));
+      renderer.addValue("OTHER OFFENSES", new SimpleFillSymbol().setColor(new Color([0, 0, 255, 0.5])));
+      renderer.addValue("ASSAULT", new SimpleFillSymbol().setColor(new Color([255, 0, 255, 0.5])));
+      renderer.addValue("VANDALISM", new SimpleFillSymbol().setColor(new Color([255, 255, 255, 0.75])));
+      renderer.addValue("DRUG/NARCOTIC", new SimpleFillSymbol().setColor(new Color([0, 255, 255, 0.5])));
+      renderer.addValue("VEHICLE THEFT", new SimpleFillSymbol().setColor(new Color([255, 255, 0, 0.5])));
+      console.log("3");
+      console.log(renderer);
+
+
+      var featureLayer = new FeatureLayer("http://services1.arcgis.com/ohIVh2op2jYT7sku/arcgis/rest/services/SFPD_Districts/FeatureServer/0", {
+                mode: FeatureLayer.MODE_SNAPSHOT,
+                outFields: ["DISTRICT"],
+                //infoTemplate: infoTemplate
+              });
+              featureLayer.setRenderer(renderer);
+          map.addLayer(featureLayer);
+
+
+
+
+
+
+    }
+
+
 
 
 
@@ -119,7 +138,7 @@ require([
       dataType:'jsonp',
       success:function(data,textStatus,jQxhr){
       console.log("success");
-      console.log(data);
+      //console.log(data);
       initSlider(date,data);
       },
       error:function(jqXhr,textStatus,errorThrown){
