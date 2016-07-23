@@ -10,18 +10,42 @@
     <link rel="stylesheet" href="https://js.arcgis.com/3.17/esri/css/esri.css">
     <link rel="stylesheet" href="css/crimecast.css">
 
+    <!-- <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script> -->
     <script src="https://js.arcgis.com/3.17/"></script>
-    <script src="js/crimecast.js"></script>
+
+
+    <!-- <link rel="stylesheet" href="jquery/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    <script>
+    $( function() {
+      $( "#datepicker" ).datepicker();
+    } );
+    </script> -->
   </head>
   <body class="claro">
 
     <div id="mapDiv">
+      <!-- <div id="jqSlider"></div> -->
+        <div id="ui-sample-description" class="ui-drop-shadow">
+          <div class="ui-header">What's the date today?</div>
+          <div class="ui-content">
+          <form id="dateTime" onsubmit="return false;">
+            <input type="date" id="date">
+            <button type="submit">submit</button>
+          </form>
+          </div>
+        </div>
       <div id="bottomPanel">
         <div id="timeInfo">
-          <!-- <div>Hugoton Gas Field Wells from <span id="daterange">1921 to 2009</span> (Completion date)</div> -->
+            Play me you'll be surprised what's coming :P
           <div id="timeSliderDiv"></div>
         </div>
       </div>
     </div>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <!-- <script src="js/crimecast.js"></script> -->
+    <script src="call_to_api.js"></script>
+
   </body>
 </html>
