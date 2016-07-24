@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1,user-scalable=no">
-    <title>Well completion dates for the Hugoton Gas Field Over Time</title>
+    <title>CrimeCast</title>
 
     <link rel="stylesheet" href="https://js.arcgis.com/3.17/dijit/themes/claro/claro.css">
     <link rel="stylesheet" href="https://js.arcgis.com/3.17/esri/css/esri.css">
@@ -12,7 +12,12 @@
 
     <!-- <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script> -->
     <script src="https://js.arcgis.com/3.17/"></script>
-
+    <!-- <script>
+      submitButton = document.getElementById("buttonSubmit");
+      submitButton.onclick = function(){
+        submitButton.style.visibility = "hidden";
+      }
+    </script> -->
 
     <!-- <link rel="stylesheet" href="jquery/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
@@ -27,18 +32,26 @@
 
     <div id="mapDiv">
       <!-- <div id="jqSlider"></div> -->
+      <!-- <div id="ui-dijit-search"></div> -->
         <div id="ui-sample-description" class="ui-drop-shadow">
-          <div class="ui-header">What's the date today?</div>
-          <div class="ui-content">
+          <!-- <div class="ui-header">What's the date today?</div> -->
+          <!-- <div class="ui-content"> -->
           <form id="dateTime" onsubmit="return false;">
             <input type="date" id="date">
-            <button type="submit">submit</button>
+            <button type="submit" id="buttonSubmit">SUBMIT</button>
           </form>
-          </div>
         </div>
+        <div id="legend">
+          <img src="img/Legend Updated.png" width="75%"/>
+        </div>
+        <div id="loader" style="display:none;">
+            <img src="img/loader.gif"/>
+          Predicting...
+        </div>
+          <!-- </div> -->
       <div id="bottomPanel">
         <div id="timeInfo">
-            Play me you'll be surprised what's coming :P
+            Time (24h)
           <div id="timeSliderDiv"></div>
         </div>
       </div>

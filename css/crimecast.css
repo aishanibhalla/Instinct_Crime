@@ -2,8 +2,29 @@ html, body, #mapDiv {
   padding:0;
   margin:0;
   height:100%;
+  font-family: "Avenir Next";
 }
 
+#date {
+  background-color: #444444;
+  color: #D14114;
+  padding: .4em;
+  border: none;
+}
+#mapDiv_zoom_slider {
+  background: #D14114;
+}
+#buttonSubmit {
+  background: none;
+  border: none;
+}
+
+.dijit.dijitReset.dijitInline.dijitButton {
+  display: none;
+}
+.dijitSliderBar {
+
+}
 #mapDiv {
   position: relative;
 }
@@ -18,14 +39,15 @@ html, body, #mapDiv {
 
 #timeInfo{
   border-radius: 4px;
-  border: solid 2px #ccc;
-  background-color: #fff;
+  border: 2px;
+  background-color: #D14114;
   display: block;
   padding: 5px;
   position: relative;
   text-align: center;
   width: 1000px;
   z-index: 99;
+  font-size: 18px;
 }
 #jqSlider {
    position: absolute;
@@ -44,12 +66,35 @@ html, body, #mapDiv {
    top: 1em;
    right: 1.25em;
    z-index: 2;
-   background-color: #fff;
+   background-color: #D14114;
    border-radius: 0.3125em;
-   border: 0.0625em #AAAAAA solid;
+   border: 0.0625em ;
    padding: 5px;
- }
 
+ }
+#legend{
+  top: 10em;
+  right: -6em;
+  z-index: 2;
+  padding: 5px;
+  position: absolute;
+}
+
+#loader {
+  top: 20em;
+  right: 28em;
+  color: white;
+  font-size: 19px;
+  z-index: 2;
+  padding: 5px;
+  position: absolute;
+  opacity: 1;
+}
+
+.dijitRuleLabel.dijitRuleLabelH{
+  font-size: 18px;
+  color: #444444;
+}
  #ui-sample-feedback {
    bottom: 1.25em;
    left: 1.25em;
@@ -59,6 +104,7 @@ html, body, #mapDiv {
    background-color: #fff;
    border-radius: 0.3125em;
    border: 0.0625em #AAAAAA solid;
+   padding: 10px;
  }
 
  .simpleInfoWindow, .simpleInfoWindow .title {
@@ -108,4 +154,9 @@ html, body, #mapDiv {
 
  input{
    font-size: 16px;
+ }
+
+ table{
+   margin-top: 3px;
+   margin-bottom: 14px;
  }
