@@ -9,8 +9,16 @@
     <link rel="stylesheet" href="https://js.arcgis.com/3.17/dijit/themes/claro/claro.css">
     <link rel="stylesheet" href="https://js.arcgis.com/3.17/esri/css/esri.css">
     <link rel="stylesheet" href="css/crimecast.css">
-
+    <link rel="stylesheet" href="myModules/InfoWindow.css">
     <!-- <script src="https://code.jquery.com/jquery-1.9.1.min.js"></script> -->
+    <script>var dojoConfig = {
+        parseOnLoad:true,
+        packages: [{
+          "name": "myModules",
+          "location": location.pathname.replace(/\/[^/]+$/, "") + "/myModules"
+        }]
+      };
+    </script>
     <script src="https://js.arcgis.com/3.17/"></script>
     <!-- <script>
       submitButton = document.getElementById("buttonSubmit");

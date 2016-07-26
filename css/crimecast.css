@@ -160,3 +160,11 @@ html, body, #mapDiv {
    margin-top: 3px;
    margin-bottom: 14px;
  }
+
+ #search {
+   display: block;
+   position: absolute;
+   z-index: 2;
+   top: 20px;
+   left: 74px;
+}
