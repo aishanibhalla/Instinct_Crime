@@ -27,10 +27,10 @@ def get_prediction():
        # print time
        # print hour
         result={}
-        location=["Bayview","Bernal Heights","Castro / Upper Market","China Town","Crocker Amazon","Diamond Heights",
-"Downtown","Excelsior","Financial District","Glen Park","Golden Gate Park","Haight Ashbury","Inner Richmond","Inner Sunset","Lakeshore","Marina","Mission","Nob Hill","Noe Valley",
-"North Beach","Ocean View","Outer Mission","Outer Richmond","Outer Sunset","Pacific Heights","Parkside","Portero Hills","Presidio","Presidio Heights","Russian Hills",
-"Sea Cliff","South Market","Treasure Island","Twin Peaks","Visitacion Valley","West Twin Peaks","Western Addition"]
+        location=["Seacliff","Haight Ashbury","Outer Mission","Russian Valley","Russian Hill","Noe Valley","Inner Sunset","Downtown/Civic Center","Diamond Heights",
+"Tresure Island/YBI","Lakeshore","Outer Richmond,Croker Amazon","Excelsior","Parkside","Financial District","Ocean View","Mission","West of Twin Peaks",
+"Inner Richmond","Marina","Bayview","Visitacion Valley",
+"Pacific Height","Presidio","Nob Hill","Outer Sunset","Western Addition","Golden Gate Park","Presidio Heights","South of Market","Glen Park","Portero Hill","Castro/Upper Market","Twin Peaks","Chinatown","North Beach"]
         for each_location in location:
             time_list=[]
             for z in range(0,24):

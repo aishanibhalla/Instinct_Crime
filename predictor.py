@@ -11,10 +11,10 @@ def predict(days,district,hour,month,year,date):
     month_1=[]
     year_1=[]
     days_1=['Friday', 'Monday', 'Saturday', 'Sunday', 'Thursday', 'Tuesday','Wednesday']
-    district_1=["Bayview","Bernal Heights","Castro / Upper Market","China Town","Crocker Amazon","Diamond Heights",
-"Downtown","Excelsior","Financial District","Glen Park","Golden Gate Park","Haight Ashbury","Inner Richmond","Inner Sunset","Lakeshore","Marina","Mission","Nob Hill","Noe Valley",
-"North Beach","Ocean View","Outer Mission","Outer Richmond","Outer Sunset","Pacific Heights","Parkside","Portero Hills","Presidio","Presidio Heights","Russian Hills",
-"Sea Cliff","South Market","Treasure Island","Twin Peaks","Visitacion Valley","West Twin Peaks","Western Addition"]
+    district_1=["Seacliff","Haight Ashbury","Outer Mission","Russian Hill","Noe Valley","Inner Sunset","Downtown/Civic Center","Diamond Heights",
+"Tresure Island/YBI","Lakeshore","Outer Richmond","Crocker Amazon","Excelsior","Parkside","Financial District","Ocean View","Mission","West of Twin Peaks",
+"Inner Richmond","Marina","Bayview","Visitacion Valley",
+"Pacific Heights","Presidio","Nob Hill","Outer Sunset","Western Addition","Golden Gate Park","Presidio Heights","South of Market","Glen Park","Potrero Hill","Castro/Upper Market","Twin Peaks","Bernal Heights","Chinatown","North Beach"]
 
     df_weekday = pd.DataFrame(0, index=range(0, 1), columns=days_1)
     df_weekday[days] = 1
@@ -61,10 +61,10 @@ def predict(days,district,hour,month,year,date):
 
     #print test_data
     features = ['Friday', 'Monday', 'Saturday', 'Sunday', 'Thursday', 'Tuesday',
-                'Wednesday',"Bayview","Bernal Heights","Castro / Upper Market","China Town","Crocker Amazon","Diamond Heights",
-"Downtown","Excelsior","Financial District","Glen Park","Golden Gate Park","Haight Ashbury","Inner Richmond","Inner Sunset","Lakeshore","Marina","Mission","Nob Hill","Noe Valley",
-"North Beach","Ocean View","Outer Mission","Outer Richmond","Outer Sunset","Pacific Heights","Parkside","Portero Hills","Presidio","Presidio Heights","Russian Hills",
-"Sea Cliff","South Market","Treasure Island","Twin Peaks","Visitacion Valley","West Twin Peaks","Western Addition"]
+                'Wednesday',"Seacliff","Haight Ashbury","Outer Mission","Russian Hill","Noe Valley","Inner Sunset","Downtown/Civic Center","Diamond Heights",
+"Tresure Island/YBI","Lakeshore","Outer Richmond","Crocker Amazon","Excelsior","Parkside","Financial District","Ocean View","Mission","West of Twin Peaks",
+"Inner Richmond","Marina","Bayview","Visitacion Valley",
+"Pacific Heights","Presidio","Nob Hill","Outer Sunset","Western Addition","Golden Gate Park","Presidio Heights","South of Market","Glen Park","Potrero Hill","Castro/Upper Market","Twin Peaks","Bernal Heights","Chinatown","North Beach"]
     features_time = [x for x in range(0,24)]
     features = features + features_time
 

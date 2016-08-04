@@ -96,6 +96,9 @@ var main_data;
    //crime = crimes.toString();
    string="<ul>"
    for(var x=0;x<crimes.length;x++){
+     if(crimes[x]=="NON-CRIMINAL"){
+       crimes[x]="OFFENSES";
+     }
      string+="<li>"+crimes[x]+"</li>";
    }
    string+="</ul>";
@@ -118,7 +121,7 @@ var main_data;
     var max = Math.max.apply( null, arr );
     //console.log(max);
     keys=Object.keys(main_data[district][time]);
-    if(max>=0.3){
+    if(max>=0.4 ){
       //console.log(arr.indexOf(max));
       //console.log(keys[arr.indexOf(max)]);
       console.log(keys[arr.indexOf(max)]);
